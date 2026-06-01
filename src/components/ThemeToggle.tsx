@@ -1,42 +1,41 @@
-"use client";
+import { Sun, Moon } from 'lucide-react';
 
-import { useTheme } from "./ThemeProvider";
+interface ThemeToggleProps {
+  theme: 'dark' | 'light';
+  onToggle: () => void;
+}
 
-export function ThemeToggle() {
-  const { theme, toggle } = useTheme();
-
+export default function ThemeToggle({ theme, onToggle }: ThemeToggleProps) {
   return (
     <button
-      onClick={toggle}
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-      className="relative w-10 h-10 flex items-center justify-center rounded-lg border border-[var(--color-border)] hover:bg-[var(--color-surface-alt)] transition-colors duration-200 dark:border-[var(--color-border-dark)] dark:hover:bg-[var(--color-surface-dark-alt)] cursor-pointer"
+      onClick={onToggle}
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      style={{
+        background: 'var(--color-bg-sidebar)',
+        border: '1px solid var(--color-border)',
+        color: 'var(--color-text-secondary)',
+        borderRadius: '8px',
+        padding: '6px 10px',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        fontSize: '0.8rem',
+        fontWeight: 500,
+        transition: 'all 0.2s',
+      }}
     >
-      <svg
-        className="w-5 h-5 hidden dark:block"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-        />
-      </svg>
-      <svg
-        className="w-5 h-5 block dark:hidden"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-        />
-      </svg>
+      {theme === 'dark' ? (
+        <>
+          <Sun size={15} />
+          <span>Light</span>
+        </>
+      ) : (
+        <>
+          <Moon size={15} />
+          <span>Dark</span>
+        </>
+      )}
     </button>
   );
 }

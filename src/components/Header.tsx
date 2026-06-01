@@ -1,47 +1,103 @@
-"use client";
+import { Menu, X, BookOpen } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
+import SearchBar from './SearchBar';
 
-import Link from "next/link";
-import { ThemeToggle } from "./ThemeToggle";
-import { useEffect, useState } from "react";
+interface HeaderProps {
+  theme: 'dark' | 'light';
+  onThemeToggle: () => void;
+  sidebarOpen: boolean;
+  onSidebarToggle: () => void;
+}
 
-export function Header() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    const handleToggle = () => setSidebarOpen((prev) => !prev);
-    window.addEventListener("toggle-sidebar", handleToggle);
-    return () => window.removeEventListener("toggle-sidebar", handleToggle);
-  }, []);
-
+export default function Header({ theme, onThemeToggle, sidebarOpen, onSidebarToggle }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[var(--color-border)] bg-[var(--color-surface)]/95 backdrop-blur-sm dark:bg-[var(--color-surface-dark)]/95 dark:border-[var(--color-border-dark)]">
-      <div className="flex items-center justify-between h-16 px-4 lg:px-8 max-w-screen-2xl mx-auto">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => {
-              const event = new CustomEvent("toggle-sidebar-mobile");
-              window.dispatchEvent(event);
+    <header
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '56px',
+        background: 'var(--color-bg-primary)',
+        borderBottom: '1px solid var(--color-border)',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 1rem',
+        gap: '0.75rem',
+        zIndex: 50,
+      }}
+    >
+      {/* Mobile menu toggle */}
+      <button
+        onClick={onSidebarToggle}
+        aria-label="Toggle navigation"
+        style={{
+          display: 'none',
+          background: 'none',
+          border: 'none',
+          color: 'var(--color-text-primary)',
+          cursor: 'pointer',
+          padding: '4px',
+          borderRadius: '6px',
+        }}
+        className="mobile-menu-btn"
+      >
+        {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+      </button>
+
+      {/* Logo */}
+      <a
+        href="/"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          textDecoration: 'none',
+          flex: 1,
+        }}
+      >
+        <div
+          style={{
+            width: '30px',
+            height: '30px',
+            background: 'linear-gradient(135deg, #e8520a, #ff8c55)',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <BookOpen size={16} color="white" />
+        </div>
+        <div>
+          <span
+            style={{
+              fontSize: '1rem',
+              fontWeight: 700,
+              color: 'var(--color-text-primary)',
+              letterSpacing: '-0.02em',
             }}
-            className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg border border-[var(--color-border)] hover:bg-[var(--color-surface-alt)] transition-colors dark:border-[var(--color-border-dark)] dark:hover:bg-[var(--color-surface-dark-alt)] cursor-pointer"
-            aria-label="Toggle sidebar"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-[var(--color-primary)] flex items-center justify-center text-white font-bold text-sm group-hover:scale-105 transition-transform">
-              A
-            </div>
-            <span className="text-lg font-bold text-[var(--color-text-primary)] dark:text-[var(--color-text-dark)] hidden sm:block">
-              AEM Simplified
-            </span>
-          </Link>
+            AEM{' '}
+            <span style={{ color: 'var(--color-accent)' }}>Simplified</span>
+          </span>
         </div>
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
+      </a>
+
+      {/* Right side */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div className="header-search">
+          <SearchBar />
         </div>
+        <ThemeToggle theme={theme} onToggle={onThemeToggle} />
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .mobile-menu-btn { display: flex !important; }
+          .header-search { display: none; }
+        }
+      `}</style>
     </header>
   );
 }

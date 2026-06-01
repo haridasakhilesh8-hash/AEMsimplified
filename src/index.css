@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-bg-sidebar: #f1f3f5;
+  --color-bg-code: #1e1e2e;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #718096;
+  --color-border: #e2e8f0;
+  --color-accent: #e8520a;
+  --color-accent-hover: #c94008;
+  --color-accent-light: #fff3ed;
+  --color-link: #e8520a;
+  --color-tag-bg: #fff3ed;
+  --color-tag-text: #e8520a;
+  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: #1a1a2e;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.dark {
+  background-color: #0f1117;
+  color: #e2e8f0;
+}
+
+/* Dark mode color overrides */
+body.dark {
+  --color-bg-primary: #0f1117;
+  --color-bg-secondary: #161b22;
+  --color-bg-sidebar: #161b22;
+  --color-bg-code: #0d1117;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #a0aec0;
+  --color-text-muted: #718096;
+  --color-border: #2d3748;
+  --color-accent: #ff6b2b;
+  --color-accent-hover: #ff8c55;
+  --color-accent-light: #1a0f08;
+  --color-link: #ff6b2b;
+  --color-tag-bg: #1a0f08;
+  --color-tag-text: #ff6b2b;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+body.dark ::-webkit-scrollbar-thumb {
+  background: #4a5568;
+}
+
+/* Prose styles */
+.prose h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+.prose h2 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.prose h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+}
+.prose ul {
+  list-style: none;
+  margin-bottom: 1rem;
+  padding-left: 0;
+}
+.prose ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+.prose ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-size: 0.85rem;
+}
+.prose ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.prose ol li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+.prose strong {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-bg-sidebar);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: var(--color-accent);
+  border: 1px solid var(--color-border);
+}
+.prose pre {
+  background: #1e1e2e;
+  border-radius: 8px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.25rem;
+  border: 1px solid #2d3748;
+}
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #cdd6f4;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.prose blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding: 0.75rem 1rem;
+  margin: 1.25rem 0;
+  background: var(--color-accent-light);
+  border-radius: 0 6px 6px 0;
+}
+.prose blockquote p {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-style: italic;
+}
+.prose a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.2s;
+}
+.prose a:hover {
+  text-decoration-color: var(--color-link);
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+}
+.prose th {
+  background: var(--color-bg-sidebar);
+  padding: 0.6rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+.prose td {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.prose tr:nth-child(even) td {
+  background: var(--color-bg-secondary);
+}
+
+/* Info/Warning/Note boxes */
+.note-box {
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  border-left: 4px solid;
+}
+.note-box.info {
+  background: #eff6ff;
+  border-color: #3b82f6;
+}
+.note-box.warning {
+  background: #fffbeb;
+  border-color: #f59e0b;
+}
+.note-box.tip {
+  background: #f0fdf4;
+  border-color: #22c55e;
+}
+.note-box.danger {
+  background: #fef2f2;
+  border-color: #ef4444;
+}
+body.dark .note-box.info {
+  background: #0c1a2e;
+  border-color: #3b82f6;
+}
+body.dark .note-box.warning {
+  background: #1a1200;
+  border-color: #f59e0b;
+}
+body.dark .note-box.tip {
+  background: #0a1f0a;
+  border-color: #22c55e;
+}
+body.dark .note-box.danger {
+  background: #1f0a0a;
+  border-color: #ef4444;
+}
+.note-box p {
+  margin: 0 !important;
+  color: var(--color-text-primary) !important;
+}
+
+/* Sidebar active */
+.sidebar-active {
+  background: var(--color-accent-light);
+  color: var(--color-accent) !important;
+  font-weight: 500;
+}
+
+/* Syntax highlighting colors */
+.token-keyword { color: #cba6f7; }
+.token-string { color: #a6e3a1; }
+.token-comment { color: #6c7086; font-style: italic; }
+.token-number { color: #fab387; }
+.token-tag { color: #89b4fa; }
+.token-attr { color: #f38ba8; }
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Mobile sidebar overlay */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 40;
+}
